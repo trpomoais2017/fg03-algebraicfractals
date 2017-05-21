@@ -1,0 +1,29 @@
+canvas { border: solid 1px #999; }	
+#selectFrame{
+	top: 100;
+	left: 100;
+	width: 50;
+	height: 50;
+	border: 1px dotted #5c6a8e;
+	background-color: rgba(101, 147, 201, 0.38);
+	position: absolute;
+	visibility: hidden;
+}
+.mainDiv{
+	float: right;
+	margin-right: 20%;
+	width: 370px;
+	height: 1px;
+}
+a.ok {
+    border: 2px groove midnightblue;
+    text-decoration: blink;
+    color: black;
+ }
+  
+.rhs {
+    float: left;
+	height: 30px;
+    width: 60%;
+}
+fieldset {border-width: 5px;}
