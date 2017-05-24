@@ -1,17 +1,18 @@
 <!doctype html>
 <html>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta http-equiv="Cache-Control" content="no-cache"/>
-	
-	<title>Алгебраические фракталы</title>
-	
+    <meta http-equiv="Cache-Control" content="no-cache" />
+
+    <title>Алгебраические фракталы</title>
+
     <script src="Render.js"></script>
     <script src="Program.js"></script>
     <script src="Newton.js"></script>
     <script src="Mandelbrot.js"></script>
     <script src="Julia.js"></script>
-	<script>
+    <script>
         /*HTMLCanvasElement.prototype.relMouseCoords = function (event) {
             var totalOffsetX = 0;
             var totalOffsetY = 0;
@@ -79,37 +80,38 @@
                 false);
 			example(canvas);
 		}*/
-	</script>
+    </script>
 
-<body onload="touch()">
-    <table align = "left" border="6">
-	<td>
-        Раскарска:
-        <select name="menu" size="1" id="color">
+    <body onload="touch()">
+        <table align="left" border="6">
+            <td>
+                Раскарска:
+                <select name="menu" size="1" id="color">
             <option value="classic">Классическая</option>
             <option value="level">Уровневая</option>
             <option value="zebra">Зеброй</option>
             <option value="gibrid">Гибридная</option>
         </select></br>
-        Задание:
-        <select size="1" id="method">
+                Задание:
+                <select size="1" id="method">
             <option value="Pool">Бассейн Ньютона</option>
             <option value="Mandelbrot">Множество Мандельброта</option>
             <option value="Julia">Множество Жюлиа</option>
         </select></br>
-        Колличество итераций</br>
-        1:<input type="range" min="1" max="200" step="1" id="number">:200 </br>
-		Экспозиция гибридной раскарски</br>
-        <input type="range" min="1" max="10" step="1" value="1" id="numberBright"> </br>
-        <input type="button" onclick="getFractal(-2,2,2,-2)" value="отрисовать"></br>
-        </br>
-        Константа Жюлиа:</br>
-        Re : <input type="number" id="x" value="-0.15"></br>
-        Im : <input type="number" id="y" value="0.70"></br>
-	</td>
-    </table>
-<td>
-    <canvas height="666" width="666" id="canvas"></canvas>
-</td>
-</body>
+                Колличество итераций</br>
+                1:<input type="range" min="1" max="200" step="1" id="number">:200 </br>
+                Экспозиция гибридной раскарски</br>
+                <input type="range" min="1" max="10" step="1" value="1" id="numberBright"> </br>
+                <input type="button" onclick="getFractal(-2,2,2,-2)" value="отрисовать"></br>
+                </br>
+                Константа Жюлиа:</br>
+                Re : <input type="number" id="x" value="-0.15"></br>
+                Im : <input type="number" id="y" value="0.70"></br>
+            </td>
+        </table>
+        <td>
+            <canvas height="666" width="666" id="canvas"></canvas>
+        </td>
+    </body>
+
 </html>
