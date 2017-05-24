@@ -1,7 +1,12 @@
 var currentFract = 'newtonPool';
 var currentColor = 'classic';
 var scale = 2;
-var coords = {left: -2, top: -2, right: 2, bottom: 2};
+var coords = {
+    left: -2,
+    top: -2,
+    right: 2,
+    bottom: 2
+};
 
 function updateCoords(left, top, right, bottom) {
     coords.left = left;
@@ -10,10 +15,12 @@ function updateCoords(left, top, right, bottom) {
     coords.bottom = bottom;
 }
 
-var resetScale = () => { scale = 2 };
+var resetScale = () => {
+    scale = 2
+};
 
 function paintClassic(point, fractType) {
-    if(fractType === "newtonPool") {
+    if (fractType === "newtonPool") {
         switch (point.attractor) {
             case 0:
                 return [255, 255, 255, 255];
@@ -24,8 +31,7 @@ function paintClassic(point, fractType) {
             case 3:
                 return [0, 0, 255, 255];
         }
-    }
-    else return point.it === 0 ? [0, 0, 0, 255] : [255, 255, 255, 255];
+    } else return point.it === 0 ? [0, 0, 0, 255] : [255, 255, 255, 255];
 }
 
 function paintLevels(n, it) {
@@ -45,10 +51,13 @@ function changeColor(color) {
 }
 
 function chooseColor(pointData, n) {
-    switch(currentColor) {
-        case 'classic' : return paintClassic(pointData, currentFract);
-        case 'levels' : return paintLevels(n, pointData.it);
-        case 'zebra' : return paintZebra(pointData.it);
+    switch (currentColor) {
+        case 'classic':
+            return paintClassic(pointData, currentFract);
+        case 'levels':
+            return paintLevels(n, pointData.it);
+        case 'zebra':
+            return paintZebra(pointData.it);
     }
 }
 
@@ -58,7 +67,7 @@ function mouseDownHandler(canvas, e) {
     var j = mouseCoords.y * (coords.bottom - coords.top) / (canvas.height - 1) + coords.top;
     if (e.button === 0) {
         scale /= 1.5;
-    } 
+    }
     if (e.button === 2) {
         scale *= 1.5;
     }
@@ -74,7 +83,7 @@ function mousePress() {
 }
 
 function run(centerX, centerY, fractType) {
-    if(fractType === undefined)
+    if (fractType === undefined)
         fractType = currentFract;
     currentFract = fractType;
     var canvas = document.getElementById("canvas");
@@ -96,7 +105,7 @@ function drawPixel(x, y, r, g, b, a, width, canvasData) {
 }
 
 function drawFractal(left, top, right, bottom, fractType, n) {
-    console.log("left "+ left + " right " + right +  " top " + top + " bottom  " + bottom);
+    console.log("left " + left + " right " + right + " top " + top + " bottom  " + bottom);
     updateCoords(left, top, right, bottom);
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext('2d');
@@ -116,11 +125,14 @@ function drawFractal(left, top, right, bottom, fractType, n) {
 
 function choseFractal(i, j, n, fractType) {
     var re = parseFloat(document.getElementById('re').value);
-    var im = parseFloat(document.getElementById('im').value); 
-    switch(fractType) {
-        case 'newtonPool': return newtonPool(i, j, n, 0);
-        case 'mandelbrotSet': return mandelbrotSet(i, j, n);
-        case 'juliaSet': return juliaSet(i, j, re, im, n);
+    var im = parseFloat(document.getElementById('im').value);
+    switch (fractType) {
+        case 'newtonPool':
+            return newtonPool(i, j, n, 0);
+        case 'mandelbrotSet':
+            return mandelbrotSet(i, j, n);
+        case 'juliaSet':
+            return juliaSet(i, j, re, im, n);
     }
 }
 
@@ -169,12 +181,16 @@ function mandelbrotSet(i, j, n) {
         i1 = i0 * i0 - j0 * j0 + i;
         j1 = 2 * i0 * j0 + j;
         if (i1 * i1 + j1 * j1 > 4)
-            return {it: k};
+            return {
+                it: k
+            };
         i0 = i1;
         j0 = j1;
         k++;
     }
-    return {it: 0};
+    return {
+        it: 0
+    };
 }
 
 function juliaSet(i, j, re, im, n) {
@@ -185,12 +201,16 @@ function juliaSet(i, j, re, im, n) {
     var k = 0;
     while (k < n) {
         if (i0 * i0 + j0 * j0 > 4)
-            return {it: k};
+            return {
+                it: k
+            };
         i1 = i0 * i0 - j0 * j0 + re;
         j1 = 2 * i0 * j0 + im;
         i0 = i1;
         j0 = j1;
         k++;
     }
-    return {it: 0};
+    return {
+        it: 0
+    };
 }
