@@ -1,4 +1,4 @@
-function CheckDistanses(a,b,n) {
+function CheckDistanses(a, b, n) {
     var x0 = 0;
     var y0 = 0;
     var x1 = 0;
@@ -16,7 +16,7 @@ function CheckDistanses(a,b,n) {
     return 0;
 }
 
-function GetMandelbrot(x,y) {
+function GetMandelbrot(x, y) {
     var d = CheckDistanses(x, y, myCanvas.n);
     return myCanvas.identifyColor(d);
 }

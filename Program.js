@@ -9,32 +9,32 @@ function MyCanvas() {
     this.method;
     this.a;
     this.b;
-	this.n;
-	
+    this.n;
+
     this.getCoordinates = function (x, y) {
         var i = x * (this.right - this.left) / (this.width - 1) + this.left;
         var j = y * (this.bottom - this.top) / (this.height - 1) + this.top;
-        return {x: i, y: j};
+        return { x: i, y: j };
     };
-	
+
     this.newCoords = function (l, t, r, b) {
         this.left = l;
         this.top = t;
         this.right = r;
         this.bottom = b;
     };
-	
-    this.callFunction = function (x,y) {
+
+    this.callFunction = function (x, y) {
         switch (this.method) {
             case "Pool":
-                return GetPool(x,y);
-            case  "Mandelbrot":
-                return GetMandelbrot(x,y);
+                return GetPool(x, y);
+            case "Mandelbrot":
+                return GetMandelbrot(x, y);
             case "Julia":
-                return GetJulia(x,y);
+                return GetJulia(x, y);
         }
     };
-	
+
     this.identifyColor = function (d) {
         var atract;
         var iteration = d;
@@ -56,8 +56,8 @@ function MyCanvas() {
                     return GibridColor(atract, iteration);
         }
     };
-	
-    this.readFields = function(){
+
+    this.readFields = function () {
         var p = document.getElementById("number");
         this.n = p.value
         p = document.getElementById("color");
@@ -73,19 +73,19 @@ function MyCanvas() {
 
 myCanvas = new MyCanvas();
 
-document.oncontextmenu = function (){
+document.oncontextmenu = function () {
     return false;
 };
 
-function touch(){
+function touch() {
     var canvas = document.getElementById("canvas");
     canvas.addEventListener("mousedown", function (e) {
         mouseDownHandler(canvas, e);
     }, false);
 }
 
-function getFractal(left,top,right,bottom) {
-    myCanvas.newCoords(left,top,right,bottom);
+function getFractal(left, top, right, bottom) {
+    myCanvas.newCoords(left, top, right, bottom);
     myCanvas.readFields();
     var canvas = document.getElementById("canvas");
 
@@ -96,36 +96,36 @@ function getFractal(left,top,right,bottom) {
     for (var i = 0; i < myCanvas.width; ++i) {
         for (var j = 0; j < myCanvas.height; ++j) {
             var point = myCanvas.getCoordinates(i, j);
-            var paint = myCanvas.callFunction(point.x,point.y);
+            var paint = myCanvas.callFunction(point.x, point.y);
             imageData.data[4 * (i + myCanvas.width * j) + 0] = paint[0];
             imageData.data[4 * (i + myCanvas.width * j) + 1] = paint[1];
             imageData.data[4 * (i + myCanvas.width * j) + 2] = paint[2];
             imageData.data[4 * (i + myCanvas.width * j) + 3] = paint[3];
         }
     }
-	
+
     context.putImageData(imageData, 0, 0);
 }
 function mouseDownHandler(canvas, e) {
     var z = 4;
     var coords = canvas.relMouseCoords(e);
-    var ox,oy;
-	
+    var ox, oy;
+
     if (e.button === 0) {
         ox = myCanvas.width / z;
         oy = myCanvas.height / z;
     } else if (e.button === 2) {
-        ox = myCanvas.width * z/2;
-        oy = myCanvas.height * z/2;
+        ox = myCanvas.width * z / 2;
+        oy = myCanvas.height * z / 2;
     }
-	
+
     var left = coords.x - ox;
     var top = coords.y - oy;
     var right = coords.x + ox;
     var bottom = coords.y + oy;
-    var point1 = myCanvas.getCoordinates(left,top);
-    var point2 = myCanvas.getCoordinates(right,bottom);
-	
+    var point1 = myCanvas.getCoordinates(left, top);
+    var point2 = myCanvas.getCoordinates(right, bottom);
+
     getFractal(point1.x, point1.y, point2.x, point2.y);
 }
 
@@ -135,17 +135,17 @@ HTMLCanvasElement.prototype.relMouseCoords = function (event) {
     var canvasX = 0;
     var canvasY = 0;
     var currentElement = this;
-	
-	totalOffsetX += currentElement.offsetLeft;
+
+    totalOffsetX += currentElement.offsetLeft;
     totalOffsetY += currentElement.offsetTop;
-	
+
     while (currentElement = currentElement.offsetParent) {
         totalOffsetX += currentElement.offsetLeft;
         totalOffsetY += currentElement.offsetTop;
     }
-	
+
     canvasX = event.pageX - totalOffsetX;
     canvasY = event.pageY - totalOffsetY;
-	
-    return {x: canvasX, y: canvasY}
+
+    return { x: canvasX, y: canvasY }
 }
