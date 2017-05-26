@@ -16,7 +16,7 @@ function updateCoords(left, top, right, bottom) {
 }
 
 var resetScale = () => {
-    scale = 2
+    scale = 2;
 };
 
 function paintClassic(point, fractType) {
@@ -46,6 +46,7 @@ function paintZebra(it) {
 }
 
 function changeColor(color) {
+	resetScale();
     currentColor = color;
     run(0, 0, currentFract);
 }
@@ -83,6 +84,7 @@ function mousePress() {
 }
 
 function run(centerX, centerY, fractType) {
+	resetScale();
     if (fractType === undefined)
         fractType = currentFract;
     currentFract = fractType;
@@ -124,14 +126,14 @@ function drawFractal(left, top, right, bottom, fractType, n) {
 }
 
 function choseFractal(i, j, n, fractType) {
-    var re = parseFloat(document.getElementById('re').value);
-    var im = parseFloat(document.getElementById('im').value);
     switch (fractType) {
         case 'newtonPool':
             return newtonPool(i, j, n, 0);
         case 'mandelbrotSet':
             return mandelbrotSet(i, j, n);
         case 'juliaSet':
+            var re = parseFloat(document.getElementById('re').value);
+    		var im = parseFloat(document.getElementById('im').value);
             return juliaSet(i, j, re, im, n);
     }
 }
