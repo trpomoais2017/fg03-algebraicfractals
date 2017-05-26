@@ -56,9 +56,9 @@
             <td colspan = "3">Fractal type:</td>
         </tr>
         <tr>
-            <td><button type="button" id = 'newtonPool' onclick="run(0, 0, 'newtonPool')">Newton Pools</button></td>
-            <td><button type="button" id = 'mandelbrotSet' onclick="run(0, 0, 'mandelbrotSet')">Mandelbrot Set</button></td>
-            <td><button type="button" id = 'juliaSet' onclick="run(0, 0, 'juliaSet')">Julia Set</button></td>
+            <td><button type="button" id = 'newtonPool' onclick="resetScale(); run(0, 0, 'newtonPool')">Newton Pools</button></td>
+            <td><button type="button" id = 'mandelbrotSet' onclick="resetScale(); resetScale(); run(0, 0, 'mandelbrotSet')">Mandelbrot Set</button></td>
+            <td><button type="button" id = 'juliaSet' onclick="resetScale(); run(0, 0, 'juliaSet')">Julia Set</button></td>
         </tr>
         <tr>
             <td colspan = "3">Color type:</td>

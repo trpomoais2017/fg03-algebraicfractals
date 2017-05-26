@@ -84,7 +84,6 @@ function mousePress() {
 }
 
 function run(centerX, centerY, fractType) {
-	resetScale();
     if (fractType === undefined)
         fractType = currentFract;
     currentFract = fractType;
@@ -107,7 +106,6 @@ function drawPixel(x, y, r, g, b, a, width, canvasData) {
 }
 
 function drawFractal(left, top, right, bottom, fractType, n) {
-    console.log("left " + left + " right " + right + " top " + top + " bottom  " + bottom);
     updateCoords(left, top, right, bottom);
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext('2d');
