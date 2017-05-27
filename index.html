@@ -1,80 +1,13 @@
-<!doctype html>
 <html>
+
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta http-equiv="Cache-Control" content="no-cache"/>
-	
-	<script>
-        HTMLCanvasElement.prototype.relMouseCoords = function (event) {
-            var totalOffsetX = 0;
-            var totalOffsetY = 0;
-            var canvasX = 0;
-            var canvasY = 0;
-            var currentElement = this;
+    <meta charset="UTF-8">
+    <script language="javascript" type="text/javascript" src="lib/p5.js"></script>
+    <script language="javascript" src="lib/p5.dom.js"></script>
+    <script language="javascript" type="text/javascript" src="algFract.js"></script>
+</head>
 
-            do {
-                totalOffsetX += currentElement.offsetLeft;
-                totalOffsetY += currentElement.offsetTop;
-            }
-            while (currentElement = currentElement.offsetParent)
-
-            canvasX = event.pageX - totalOffsetX;
-            canvasY = event.pageY - totalOffsetY;
-
-            // Fix for variable canvas width
-            canvasX = Math.round( canvasX * (this.width / this.offsetWidth) );
-            canvasY = Math.round( canvasY * (this.height / this.offsetHeight) );
-
-            return {x:canvasX, y:canvasY}
-        }
-        
-		//пример рисования произвольного множества точек
-		function example(canvas) {
-			var canvasHeight = parseInt(canvas.getAttribute("height"));
-			var canvasWidth = parseInt(canvas.getAttribute("width"));
-			
-			//создаем 2d context
-			var context = canvas.getContext('2d');
-			
-			//создаем "буфер" imageData, в который будем класть новую информацию о цветах
-			var imageData = context.createImageData(canvasWidth, canvasHeight);
-			for (var i = 0; i < canvasWidth; i++) {
-				for (var j = 0; j < canvasHeight; j++) {
-					var red = 0;
-					var green = 0;
-					var blue = (i + j) % 255;
-					if (i % 20 == 0)
-						red = 150;
-					if (j % 20 == 0)
-						green = 150;
-					var opacity = 255;
-					
-					imageData.data[4*(i + canvasWidth*j) + 0] = red;
-					imageData.data[4*(i + canvasWidth*j) + 1] = green;
-					imageData.data[4*(i + canvasWidth*j) + 2] = blue;
-					imageData.data[4*(i + canvasWidth*j) + 3] = opacity;
-				}
-			}
-			//заполненный "буфер" imageData передаем в context для вывода на экран
-			context.putImageData(imageData, 0, 0);
-		}
-        
-        function mouseDownHandler(canvas, e) {
-	        var coords = canvas.relMouseCoords(e);
-	        alert("x=" + coords.x + " " + "y=" + coords.y);
-        }
-		
-		//вызывается после загрузки body
-		function run () {
-            var canvas = document.getElementById("canvas");
-            canvas.addEventListener("mousedown",
-                function(e) { mouseDownHandler(canvas, e); },
-                false);
-			example(canvas);
-		}
-	</script>
-
-<body onload="run()">
-  <canvas height='200' width='200' id='canvas'></canvas>
+<body>
 </body>
+
 </html>
