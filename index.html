@@ -1,80 +1,75 @@
 <!doctype html>
 <html>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta http-equiv="Cache-Control" content="no-cache"/>
-	
-	<script>
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <script src="script.js" type="text/javascript" charset="utf-8"></script>
+    <script>
         HTMLCanvasElement.prototype.relMouseCoords = function (event) {
             var totalOffsetX = 0;
             var totalOffsetY = 0;
             var canvasX = 0;
             var canvasY = 0;
             var currentElement = this;
-
             do {
                 totalOffsetX += currentElement.offsetLeft;
                 totalOffsetY += currentElement.offsetTop;
             }
             while (currentElement = currentElement.offsetParent)
-
             canvasX = event.pageX - totalOffsetX;
             canvasY = event.pageY - totalOffsetY;
-
-            // Fix for variable canvas width
-            canvasX = Math.round( canvasX * (this.width / this.offsetWidth) );
-            canvasY = Math.round( canvasY * (this.height / this.offsetHeight) );
-
-            return {x:canvasX, y:canvasY}
+            canvasX = Math.round(canvasX * (this.width / this.offsetWidth));
+            canvasY = Math.round(canvasY * (this.height / this.offsetHeight));
+            return {
+                x: canvasX,
+                y: canvasY
+            }
         }
-        
-		//пример рисования произвольного множества точек
-		function example(canvas) {
-			var canvasHeight = parseInt(canvas.getAttribute("height"));
-			var canvasWidth = parseInt(canvas.getAttribute("width"));
-			
-			//создаем 2d context
-			var context = canvas.getContext('2d');
-			
-			//создаем "буфер" imageData, в который будем класть новую информацию о цветах
-			var imageData = context.createImageData(canvasWidth, canvasHeight);
-			for (var i = 0; i < canvasWidth; i++) {
-				for (var j = 0; j < canvasHeight; j++) {
-					var red = 0;
-					var green = 0;
-					var blue = (i + j) % 255;
-					if (i % 20 == 0)
-						red = 150;
-					if (j % 20 == 0)
-						green = 150;
-					var opacity = 255;
-					
-					imageData.data[4*(i + canvasWidth*j) + 0] = red;
-					imageData.data[4*(i + canvasWidth*j) + 1] = green;
-					imageData.data[4*(i + canvasWidth*j) + 2] = blue;
-					imageData.data[4*(i + canvasWidth*j) + 3] = opacity;
-				}
-			}
-			//заполненный "буфер" imageData передаем в context для вывода на экран
-			context.putImageData(imageData, 0, 0);
-		}
-        
-        function mouseDownHandler(canvas, e) {
-	        var coords = canvas.relMouseCoords(e);
-	        alert("x=" + coords.x + " " + "y=" + coords.y);
+    </script>
+    <style>
+        td>input {
+            width: 50px;
         }
-		
-		//вызывается после загрузки body
-		function run () {
-            var canvas = document.getElementById("canvas");
-            canvas.addEventListener("mousedown",
-                function(e) { mouseDownHandler(canvas, e); },
-                false);
-			example(canvas);
-		}
-	</script>
+        canvas {
+            border: 2px solid black;
+            margin-left: 500px;
+        }       
+    </style>
+</head>
 
-<body onload="run()">
-  <canvas height='200' width='200' id='canvas'></canvas>
+<body onload="mousePress();">
+    <table>
+        <tr>
+            <td colspan = "3">Тип фрактала:</td>
+        </tr>
+        <tr>
+            <td><button type="button" id = 'newtonPool' onclick="resetScale(); run(0, 0, 'newtonPool')">Бассейны Ньютона</button></td>
+            <td><button type="button" id = 'mandelbrotSet' onclick="resetScale(); run(0, 0, 'mandelbrotSet')">Множество Мандельброта</button></td>
+            <td><button type="button" id = 'juliaSet' onclick="resetScale(); run(0, 0, 'juliaSet')">Множество Жюлиа</button></td>
+        </tr>
+        <tr>
+            <td colspan = "3">Тип раскраски:</td>
+        </tr>
+        <tr>
+            <td><button type="button" id = 'classicPaint' onclick="changeColor('classic')">Классическая</button></td>
+            <td><button type="button" id = 'levelPaint' onclick="changeColor('levels')">Уровни</button></td>
+            <td><button type="button" id = 'zebraPaint' onclick="changeColor('zebra')">Зебра</button></td>
+        </tr>
+        <tr>
+            <td colspan = "3">Значение константы для множества Жюлиа:</td> 
+        </tr>
+        <tr>
+            <td>С = <input id = "re" name = "re" value = "-0.12">
+            + i<input id = "im" name = "im" value = "0.74"></td>      
+        </tr>
+        <tr>
+            <td colspan = "2">максимальное количество итераций: <input id = "n" name = "n" value = "200"></td>
+        </tr>
+        <tr>
+            <td><button type="button" onclick="resetScale(); run(0, 0)">Построить</button></td>
+        </tr>
+    </table>
+    <canvas oncontextmenu="return false;" height='600' width='600' id='canvas'></canvas>
 </body>
 </html>
